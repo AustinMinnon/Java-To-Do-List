@@ -121,7 +121,6 @@ public class Task {
       }
     }
 
-
     try(Connection con = DB.sql2o.open()){
       List<Integer> taskIds = con.createQuery(sql)
         .executeAndFetch(Integer.class);
@@ -139,4 +138,32 @@ public class Task {
     }
   }
 
+  public static List<Task> getSharedTasks(String[] categoriesids){
+    String sql = "SELECT task_id FROM categories_tasks WHERE category_id IN (";
+    for(int i = 0; i < categoriesids.length; i++){
+      if (i == 0) {
+        sql = sql + categoriesids[0];
+      }else {
+        sql += ", " + categoriesids[i];
+      }
+    }
+    sql += ") GROUP BY task_id HAVING count(*) = " + categoriesids.length;
+
+    try(Connection con = DB.sql2o.open()){
+      List<Integer> taskIds = con.createQuery(sql)
+        .executeAndFetch(Integer.class);
+
+      ArrayList<Task> tasks = new ArrayList<Task>();
+
+      for (Integer taskId : taskIds) {
+        String taskQuery = "SELECT * FROM tasks WHERE id = :taskId";
+        Task task = con.createQuery(taskQuery)
+          .addParameter("taskId", taskId)
+          .executeAndFetchFirst(Task.class);
+        tasks.add(task);
+      }
+    return tasks;
+    }
+  }
+  //task_id FROM categories_tasks WHERE category_id IN (3, 5) GROUP BY task_id HAVING count(*) = 2;
 }

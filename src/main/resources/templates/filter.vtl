@@ -1,0 +1,40 @@
+<h3> Filter Task by Category </h3>
+<div class="row">
+  <div class="col-md-6">
+    <form action="/filter" method="post">
+      <div class="radio">
+        <label>
+        <input type="radio" name="filterType" id="allTasks" value="allTasks">
+        All Tasks in these Categories
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+        <input type="radio" name="filterType" id="sharedTasks" value="sharedTasks">
+        Shared Tasks in these Categories
+        </label>
+      </div>
+      #foreach($category in $allCategories)
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="checkCategory" value="$category.getId()" id="category$category.getId()">
+          $category.getName()
+        </label>
+      </div>
+      #end
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h3>Qualifying Tasks:</h3>
+    #if ($filteredTasks)
+      #foreach ($task in $filteredTasks)
+        <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
+      #end
+    #else
+      <h4>No matching tasks found</h4>
+    #end
+  </div>
+</div>
+<form>
+</form>

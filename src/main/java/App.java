@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -91,6 +92,29 @@ public class App {
       response.redirect("/tasks/" + taskId);
       return null;
     });
+
+    get("/filter", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("allCategories", Category.all());
+      model.put("template", "templates/filter.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/filter", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      List<Task> foundTasks = Task.all();
+      String filterType = request.queryParams("filterType");
+      String[] selectedCategories = request.queryParamsValues("checkCategory");
+      if (filterType.equals("allTasks")) {
+        foundTasks = Task.getCombinedTasks(selectedCategories);
+      } else {
+        foundTasks = Task.getSharedTasks(selectedCategories);
+      }
+      model.put("filteredTasks", foundTasks);
+      model.put("allCategories", Category.all());
+      model.put("template", "templates/filter.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
   }
 }
