@@ -1,6 +1,7 @@
 <h1>Edit Task</h1>
 
-<h4>$task.getName()</h4>
+<h4>$task.getDescription()</h4>
+<a type="button" href="/tasks/$task.getId()/delete" class="btn btn-danger">Delete $task.getDescription()</a>
 
 <form class="form-inline" action="/tasks/$task.getId()" method="post">
   <div class="form-group">

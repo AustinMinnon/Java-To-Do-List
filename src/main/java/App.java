@@ -138,5 +138,15 @@ public class App {
       model.put("template", "templates/task.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
+
+    get("/tasks/:id/delete", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int taskId = Integer.parseInt(request.params("id"));
+      Task newTask = Task.find(taskId);
+      newTask.delete();
+      model.put("task", newTask);
+      model.put("template", "templates/delete.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }
