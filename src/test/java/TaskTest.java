@@ -85,8 +85,10 @@ public class TaskTest {
     task1.addCategory(category2);
     task2.addCategory(category1);
     task3.addCategory(category2);
-    List combinedTasks = Task.getCombinedTasks(category1.getId(), category2.getId());
+    String[] categoriesids = {Integer.toString(category1.getId()), Integer.toString(category2.getId()) };
+    List combinedTasks = Task.getCombinedTasks(categoriesids);
     assertEquals(combinedTasks.size(), 3);
+    assertTrue(combinedTasks.contains(task3));
   }
 
   @Test
