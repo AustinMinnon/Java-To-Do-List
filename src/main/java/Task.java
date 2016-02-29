@@ -58,10 +58,11 @@ public class Task {
   }
 
   public void update(String description) {
+    this.description = description;
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE tasks SET description = :description WHERE id = :id";
       con.createQuery(sql)
-        .addParameter("description", description)
+        .addParameter("description", this.description)
         .addParameter("id", id)
         .executeUpdate();
     }
@@ -165,5 +166,4 @@ public class Task {
     return tasks;
     }
   }
-  //task_id FROM categories_tasks WHERE category_id IN (3, 5) GROUP BY task_id HAVING count(*) = 2;
 }

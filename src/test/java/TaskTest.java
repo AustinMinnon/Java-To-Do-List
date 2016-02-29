@@ -36,6 +36,16 @@ public class TaskTest {
   }
 
   @Test
+  public void update_updatesTaskDescription() {
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.update("Mow all the lawns");
+    Task savedTask = Task.find(myTask.getId());
+    assertTrue(myTask.equals(savedTask));
+    assertEquals(myTask.getDescription(), "Mow all the lawns");
+  }
+
+  @Test
   public void find_findsTaskInDatabase_true() {
     Task myTask = new Task("Mow the lawn");
     myTask.save();

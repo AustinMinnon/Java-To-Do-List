@@ -105,10 +105,12 @@ public class App {
       List<Task> foundTasks = Task.all();
       String filterType = request.queryParams("filterType");
       String[] selectedCategories = request.queryParamsValues("checkCategory");
-      if (filterType.equals("allTasks")) {
-        foundTasks = Task.getCombinedTasks(selectedCategories);
-      } else {
-        foundTasks = Task.getSharedTasks(selectedCategories);
+      if (selectedCategories != null) {
+        if (filterType.equals("allTasks")) {
+          foundTasks = Task.getCombinedTasks(selectedCategories);
+        } else {
+          foundTasks = Task.getSharedTasks(selectedCategories);
+        }
       }
       model.put("filteredTasks", foundTasks);
       model.put("allCategories", Category.all());
@@ -116,5 +118,25 @@ public class App {
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
+    get("/tasks/:id/edit", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int taskId = Integer.parseInt(request.params("id"));
+      Task newTask = Task.find(taskId);
+      model.put("task", newTask);
+      model.put("template", "templates/edit.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/tasks/:id", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params("id"));
+      Task task = Task.find(id);
+      String newName = request.queryParams("updateName");
+      task.update(newName);
+      model.put("task", task);
+      model.put("allCategories", Category.all());
+      model.put("template", "templates/task.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
   }
 }

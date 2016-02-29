@@ -4,16 +4,17 @@
     <form action="/filter" method="post">
       <div class="radio">
         <label>
-        <input type="radio" name="filterType" id="allTasks" value="allTasks">
-        All Tasks in these Categories
+        <input type="radio" name="filterType" id="allTasks" value="allTasks" checked>
+        All Tasks in any of these Categories
         </label>
       </div>
       <div class="radio">
         <label>
         <input type="radio" name="filterType" id="sharedTasks" value="sharedTasks">
-        Shared Tasks in these Categories
+        Shared Tasks in all of these Categories
         </label>
       </div>
+      <hr/>
       #foreach($category in $allCategories)
       <div class="checkbox">
         <label>
@@ -36,5 +37,3 @@
     #end
   </div>
 </div>
-<form>
-</form>

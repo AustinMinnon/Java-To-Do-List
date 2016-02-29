@@ -61,6 +61,19 @@ public class AppTest extends FluentTest {
     submit(".btn");
     assertThat(pageSource()).contains("Mow the lawn");
     assertThat(pageSource()).contains("Paint The Fence");
-
   }
+
+  @Test
+  public void editAndDeleteTasks() {
+    Category category1 = new Category("Outdoor chores");
+    category1.save();
+    Task task1 = new Task("Mow the lawn");
+    task1.save();
+    task1.addCategory(category1);
+    goTo("http://localhost:4567/tasks/" + task1.getId() + "/edit");
+    fill("#updateName").with("Weed the garden");
+    submit("#editName");
+    assertThat(pageSource()).contains("Weed the garden");
+    assertThat((pageSource()).contains("Weed") == false);
+    }
 }
