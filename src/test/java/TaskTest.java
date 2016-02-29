@@ -140,4 +140,29 @@ public class TaskTest {
     assertEquals(myCategory.getTasks().size(), 0);
   }
 
+  @Test
+  public void getStatus_returnsCompleteStatus() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+
+    myTask.addCategory(myCategory);
+    assertFalse(myTask.getStatus());
+  }
+
+  @Test
+  public void completed_ChangeStatusToTrue() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    myTask.completed();
+    Task savedTask = Task.find(myTask.getId());
+    assertTrue(savedTask.getStatus());
+  }
+
 }

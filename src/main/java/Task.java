@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Task {
   private int id;
   private String description;
+  private boolean status;
 
   public int getId() {
     return id;
@@ -14,8 +15,13 @@ public class Task {
     return description;
   }
 
+  public boolean getStatus() {
+    return status;
+  }
+
   public Task(String description) {
     this.description = description;
+    this.status = false;
   }
 
   @Override
@@ -31,7 +37,7 @@ public class Task {
 
 
   public static List<Task> all() {
-    String sql = "SELECT id, description FROM tasks";
+    String sql = "SELECT * FROM tasks";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Task.class);
     }
@@ -39,9 +45,10 @@ public class Task {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO tasks(description) VALUES (:description)";
+      String sql = "INSERT INTO tasks(description, status) VALUES (:description, :status)";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("description", description)
+        .addParameter("status", status)
         .executeUpdate()
         .getKey();
     }
@@ -63,6 +70,17 @@ public class Task {
       String sql = "UPDATE tasks SET description = :description WHERE id = :id";
       con.createQuery(sql)
         .addParameter("description", this.description)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
+  public void completed() {
+    this.status = true;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE tasks SET status = :status WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("status", this.status)
         .addParameter("id", id)
         .executeUpdate();
     }
