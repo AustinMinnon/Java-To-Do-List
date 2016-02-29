@@ -88,4 +88,30 @@ public class AppTest extends FluentTest {
     click("a", withText("Delete Mow the lawn"));
     assertThat(pageSource()).contains("Mow the lawn has been deleted");
   }
+
+  @Test
+  public void editCategory() {
+    Category category1 = new Category("Outdoor chores");
+    category1.save();
+    Task task1 = new Task("Mow the lawn");
+    task1.save();
+    task1.addCategory(category1);
+    goTo("http://localhost:4567/categories/" + category1.getId() + "/edit");
+    fill("#updateCategoryName").with("Yardwork");
+    submit("#editCategoryName");
+    assertThat(pageSource()).contains("Yardwork");
+    assertThat(pageSource()).doesNotContain("Outdoor chores");
+    }
+
+  @Test
+  public void deleteCategory() {
+    Category category1 = new Category("Outdoor chores");
+    category1.save();
+    Task task1 = new Task("Mow the lawn");
+    task1.save();
+    task1.addCategory(category1);
+    goTo("http://localhost:4567/categories/" + category1.getId() + "/edit");
+    click("a", withText("Delete Outdoor chores"));
+    assertThat(pageSource()).contains("Outdoor chores has been deleted");
+  }
 }
