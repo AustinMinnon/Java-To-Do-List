@@ -111,4 +111,25 @@ public class Task {
     }
   }
 
+  public static List<Task> getCombinedTasks(int categoryId1, int categoryId2){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT DISTINCT task_id FROM categories_tasks WHERE category_id = :categoryid1 OR category_id = :categoryid2";
+      List<Integer> taskIds = con.createQuery(sql)
+        .addParameter("categoryid1", categoryId1)
+        .addParameter("categoryid2", categoryId2)
+        .executeAndFetch(Integer.class);
+
+      ArrayList<Task> tasks = new ArrayList<Task>();
+
+      for (Integer taskId : taskIds) {
+        String taskQuery = "SELECT * FROM tasks WHERE id = :taskId";
+        Task task = con.createQuery(taskQuery)
+          .addParameter("taskId", taskId)
+          .executeAndFetchFirst(Task.class);
+        tasks.add(task);
+      }
+    return tasks;
+    }
+  }
+
 }

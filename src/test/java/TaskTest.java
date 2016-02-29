@@ -70,6 +70,26 @@ public class TaskTest {
   }
 
   @Test
+  public void getCombinedTasks_returnsTasksFromDifferentCategories(){
+    Category category1 = new Category("Household chores");
+    category1.save();
+    Category category2 = new Category("Outdoor chores");
+    category2.save();
+    Task task1 = new Task("Mow the lawn");
+    task1.save();
+    Task task2 = new Task("Do the dishes");
+    task2.save();
+    Task task3 = new Task("Weed the garden");
+    task3.save();
+    task1.addCategory(category1);
+    task1.addCategory(category2);
+    task2.addCategory(category1);
+    task3.addCategory(category2);
+    List combinedTasks = Task.getCombinedTasks(category1.getId(), category2.getId());
+    assertEquals(combinedTasks.size(), 3);
+  }
+
+  @Test
   public void delete_deletesAllTasksAndListsAssoicationes() {
     Category myCategory = new Category("Household chores");
     myCategory.save();
@@ -80,6 +100,6 @@ public class TaskTest {
     myTask.addCategory(myCategory);
     myTask.delete();
     assertEquals(myCategory.getTasks().size(), 0);
-  }   
+  }
 
 }
