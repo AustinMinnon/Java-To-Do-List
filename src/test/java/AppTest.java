@@ -114,4 +114,31 @@ public class AppTest extends FluentTest {
     click("a", withText("Delete Outdoor chores"));
     assertThat(pageSource()).contains("Outdoor chores has been deleted");
   }
+
+  @Test
+  public void markTaskCompleted() {
+    Category category1 = new Category("Household chores");
+    category1.save();
+    Category category2 = new Category("Outdoor chores");
+    category2.save();
+    Task task1 = new Task("Mow the lawn");
+    task1.save();
+    Task task2 = new Task("Do the dishes");
+    task2.save();
+    Task task3 = new Task("Weed the garden");
+    task3.save();
+    Task task4 = new Task("Paint The Fence");
+    task4.save();
+    task1.addCategory(category1);
+    task1.addCategory(category2);
+    task2.addCategory(category1);
+    task3.addCategory(category2);
+    task4.addCategory(category1);
+    task4.addCategory(category2);
+    goTo("http://localhost:4567/categories/" + category1.getId());
+    click("#task" + task1.getId());
+    submit("#taskComplete");
+    //assertThat(pageSource()).doesNotContain("Mow the lawn");
+    assertThat(pageSource()).contains("Do the dishes");
+  }
 }

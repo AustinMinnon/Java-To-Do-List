@@ -62,6 +62,21 @@ public class CategoryTest {
   }
 
   @Test
+  public void getCompletedTasks_returnsAllTasksInCategoryMarkedComplete() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    myTask.completed();
+    Task toDo = new Task("Weed");
+    toDo.save();
+    toDo.addCategory(myCategory);
+    assertEquals(myCategory.getCompletedTasks().size(), 1);
+  }
+
+  @Test
   public void delete_deletesAllTasksAndListsAssoicationes() {
     Category myCategory = new Category("Household chores");
     myCategory.save();

@@ -86,6 +86,17 @@ public class Task {
     }
   }
 
+  public void unCompleted() {
+    this.status = false;
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE tasks SET status = :status WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("status", this.status)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
   public void delete() {
     try(Connection con = DB.sql2o.open()) {
       String deleteQuery = "DELETE FROM tasks WHERE id = :id;";
@@ -112,7 +123,7 @@ public class Task {
 
   public ArrayList<Category> getCategories() {
     try(Connection con = DB.sql2o.open()){
-      String sql = "SELECT category_id FROM categories_tasks WHERE task_id = :task_id";
+      String sql = "SELECT DISTINCT category_id FROM categories_tasks WHERE task_id = :task_id";
       List<Integer> categoryIds = con.createQuery(sql)
         .addParameter("task_id", this.getId())
         .executeAndFetch(Integer.class);

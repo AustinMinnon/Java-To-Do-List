@@ -78,6 +78,7 @@ public class App {
       int categoryId = Integer.parseInt(request.queryParams("category_id"));
       Category category = Category.find(categoryId);
       Task task = Task.find(taskId);
+      task.unCompleted();
       category.addTask(task);
       response.redirect("/categories/" + categoryId);
       return null;
@@ -90,6 +91,19 @@ public class App {
       Task task = Task.find(taskId);
       task.addCategory(category);
       response.redirect("/tasks/" + taskId);
+      return null;
+    });
+
+    post("/completed", (request, response) -> {
+      int categoryId = Integer.parseInt(request.queryParams("category_id"));
+      String[] completedTasks = request.queryParamsValues("completedTask");
+      if(completedTasks != null) {
+        for (String taskId : completedTasks) {
+          Task tempTask = Task.find(Integer.parseInt(taskId));
+          tempTask.completed();
+        }
+      }
+      response.redirect("/categories/" + categoryId);
       return null;
     });
 
