@@ -120,10 +120,10 @@ public class App {
       String filterType = request.queryParams("filterType");
       String[] selectedCategories = request.queryParamsValues("checkCategory");
       if (selectedCategories != null) {
-        if (filterType.equals("allTasks")) {
-          foundTasks = Task.getCombinedTasks(selectedCategories);
-        } else {
+        if (filterType.equals("sharedTasks")) {
           foundTasks = Task.getSharedTasks(selectedCategories);
+        } else {
+          foundTasks = Task.getCombinedTasks(selectedCategories);
         }
       }
       model.put("filteredTasks", foundTasks);

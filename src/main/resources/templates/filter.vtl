@@ -29,9 +29,18 @@
   <div class="col-md-6">
     <h3>Qualifying Tasks:</h3>
     #if ($filteredTasks)
+      <ul class="list-group">
       #foreach ($task in $filteredTasks)
-        <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
+        <li class="list-group-item">
+          <dl>
+          <dt><a href="/tasks/$task.getId()">$task.getDescription()</a></dt>
+          #foreach ($category in $task.getCategories())
+            <dd>$category.getName()</dd>
+          #end
+          </dl>
+        </li>
       #end
+      </ul>
     #else
       <h4>No matching tasks found</h4>
     #end

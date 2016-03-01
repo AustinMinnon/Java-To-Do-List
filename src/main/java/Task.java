@@ -177,7 +177,7 @@ public class Task {
         sql += ", " + categoriesids[i];
       }
     }
-    sql += ") GROUP BY task_id HAVING count(*) = " + categoriesids.length;
+    sql += ") GROUP BY task_id HAVING count(*) >= " + categoriesids.length;
 
     try(Connection con = DB.sql2o.open()){
       List<Integer> taskIds = con.createQuery(sql)

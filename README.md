@@ -35,7 +35,8 @@ $ gradle run
 ```
 ## Known Bugs
 
-Does not sort results alphabetically or consistently.
+- Does not sort results alphabetically or consistently.
+- Tasks that share categories not sorting correctly
 
 ## Technologies Used
 
