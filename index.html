@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>To Do List by AustinMinnon</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">To Do List</h1>
+        <p class="header">An extensive version of a to-do list, with filter options. Java</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/AustinMinnon/to_do_java_day16/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/AustinMinnon/to_do_java_day16/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/AustinMinnon/to_do_java_day16">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/AustinMinnon">AustinMinnon</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a id="to-do---many-to-many-relationship" class="anchor" href="#to-do---many-to-many-relationship" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>To Do - Many to Many Relationship</h1>
+
+<h4>
+<a id="a-to-do-list-with-categories-and-tasks" class="anchor" href="#a-to-do-list-with-categories-and-tasks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A to do list with categories and tasks</h4>
+
+<h4>
+<a id="by-abigail-rolling-ryan-king-and-austin-minnon" class="anchor" href="#by-abigail-rolling-ryan-king-and-austin-minnon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>By Abigail Rolling, Ryan King, and Austin Minnon</h4>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h2>
+
+<p>This to do app organizes tasks by category and completion state; each task can belong to multiple categories. It will also filter tasks by whether they belong to all or each of multiple categories.</p>
+
+<h2>
+<a id="setupinstallation-requirements" class="anchor" href="#setupinstallation-requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup/Installation Requirements</h2>
+
+<p>Clone this repository:</p>
+
+<pre><code>$ cd ~/Desktop
+$ git clone github address
+$ cd folder-name
+</code></pre>
+
+<p>Open terminal and run Postgres:</p>
+
+<pre><code>$ postgres
+</code></pre>
+
+<p>Open a new tab in terminal and create the <code>to_do</code> database:</p>
+
+<pre><code>$ psql
+$ CREATE DATABASE to_do;
+$ psql to_do &lt; to_do.sql
+</code></pre>
+
+<p>Navigate back to the directory where this repository has been cloned and run gradle:</p>
+
+<pre><code>$ gradle run
+</code></pre>
+
+<h2>
+<a id="known-bugs" class="anchor" href="#known-bugs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Known Bugs</h2>
+
+<ul>
+<li>Does not sort results alphabetically or consistently.</li>
+<li>Tasks that share categories not sorting correctly</li>
+</ul>
+
+<h2>
+<a id="technologies-used" class="anchor" href="#technologies-used" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technologies Used</h2>
+
+<ul>
+<li>Java</li>
+<li>junit</li>
+<li>Gradle</li>
+<li>Spark</li>
+<li>fluentlenium</li>
+<li>PostgreSQL</li>
+<li>Bootstrap</li>
+</ul>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h3>
+
+<p>Licensed under the GPL.</p>
+
+<p>Copyright (c) 2016 <strong>Abigail Rolling, Ryan King, and Austin Minnon</strong></p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
